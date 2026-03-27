@@ -1,4 +1,3 @@
-[WHI_Predictors_Guide.md](https://github.com/user-attachments/files/26311302/WHI_Predictors_Guide.md)
 WHI DNAm Smoking Predictors
 ================
 
