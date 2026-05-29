@@ -19,17 +19,17 @@ smoke_status <- function(meth, predictors = c("packyears", "cessation", "SMOKE_3
   }
   
   if("packyears" %in% predictors){
-    coefs <- read.csv("https://raw.githubusercontent.com/D-Khodasevich/WHI_Smoking/refs/heads/main/predictors/packyears_coefficients.csv?token=GHSAT0AAAAAACTZBEWEZ4ZVXA4M5XMWKYGS2GATUOQ")
+    coefs <- read.csv("https://raw.githubusercontent.com/D-Khodasevich/WHI_Smoking/refs/heads/main/predictors/packyears_coefficients.csv")
     if(array != "EPICv2"){coefs$name <- gsub("\\_.*", "", coefs$name)}
     preds$packyears <- apply_model(coefs, as.matrix(meth))
   }
   if("cessation" %in% predictors){
-    coefs <- read.csv("https://raw.githubusercontent.com/D-Khodasevich/WHI_Smoking/refs/heads/main/predictors/cessation_coefficients_nocur.csv?token=GHSAT0AAAAAACTZBEWFMOJC7QR53Q436AZC2GATUEA")
+    coefs <- read.csv("https://raw.githubusercontent.com/D-Khodasevich/WHI_Smoking/refs/heads/main/predictors/cessation_coefficients_nocur.csv")
     if(array != "EPICv2"){coefs$name <- gsub("\\_.*", "", coefs$name)}
     preds$cessation <- apply_model(coefs, as.matrix(meth))
   } 
   if("SMOKE_3cat" %in% predictors){
-    coefs <- read.csv("https://raw.githubusercontent.com/D-Khodasevich/WHI_Smoking/refs/heads/main/predictors/3cat_coefficients.csv?token=GHSAT0AAAAAACTZBEWFWF62EC4CH57AYIM62GATK5A")
+    coefs <- read.csv("https://raw.githubusercontent.com/D-Khodasevich/WHI_Smoking/refs/heads/main/predictors/3cat_coefficients.csv")
     if(array != "EPICv2"){coefs$name <- gsub("\\_.*", "", coefs$name)}
     never <- subset(coefs, coefs$class == "Never"); never$class <- NULL
     former <- subset(coefs, coefs$class == "Former"); former$class <- NULL
@@ -67,7 +67,7 @@ apply_model <- function(coefficients, meth){
     message("Missing Data: performing mean imputation to fill in missing data")
     toremove <- c()
     for(i in 1:ncol(meth)){
-      if(sum(is.na(meth[, i])) > 10000){
+      if(sum(is.na(meth[, i])) > 0.5*nrow(meth)){
         toremove <- append(toremove, i)
       } else{
         if(sum(is.na(meth[, i])) > 0){
