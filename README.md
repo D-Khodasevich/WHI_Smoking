@@ -13,7 +13,7 @@ columns.
 
 ``` r
 library(tidyverse)
-source("WHI_Predictors.R") # update with github version once public ############################
+source("https://raw.githubusercontent.com/D-Khodasevich/WHI_Smoking/refs/heads/main/WHI_Predictors.R") 
 
 load("./results/GSE50660_dat_example.RData")
 # Input is a DNAm matrix with CpGs as rows, samples as columns
